@@ -1,5 +1,5 @@
-// React useContext and useState hooks
-import { useContext, useState } from "react";
+// React useContext hook
+import { useContext } from "react";
 
 // Material UI
 import {
@@ -8,15 +8,14 @@ import {
    Toolbar,
    Typography,
    Container,
-   IconButton,
-   Menu,
-   MenuItem,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 // Authentication Context
 import { AuthContext } from "../context/auth";
+
+// Navlink to change page
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
    root: {
@@ -32,56 +31,38 @@ const useStyles = makeStyles(() => ({
 
 const Navbar = () => {
    // User + Logout from context
-   const { user, logout } = useContext(AuthContext);
+   const { user } = useContext(AuthContext);
 
    // Custom Classes
    const classes = useStyles();
 
-   // Openning Menu Variables
-   const [anchorEl, setAnchorEl] = useState(null);
-   const open = Boolean(anchorEl);
-
-   // Openning Menu Handlers
-   const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-   };
-
-   const handleClose = () => {
-      setAnchorEl(null);
-   };
-
    const buttons = user ? (
       <>
-         <IconButton onClick={handleClick}>
-            <AccountCircleIcon />
-         </IconButton>
-         <Menu
-            anchorEl={anchorEl}
-            keepMounted
-            open={open}
-            onClose={handleClose}
-         >
-            <MenuItem>Profile</MenuItem>
-            <MenuItem>Logout</MenuItem>
-         </Menu>
+         <Button color="secondary" variant="outlined">
+            Logout
+         </Button>
       </>
    ) : (
       <>
-         <Button color="light" variant="outlined">
-            Login
-         </Button>
-         <Button
-            color="light"
-            variant="outlined"
-            className={classes.rightButton}
-         >
-            Register
-         </Button>
+         <NavLink to="/login">
+            <Button color="default" variant="outlined">
+               Login
+            </Button>
+         </NavLink>
+         <NavLink to="/register">
+            <Button
+               color="default"
+               variant="outlined"
+               className={classes.rightButton}
+            >
+               Register
+            </Button>
+         </NavLink>
       </>
    );
 
    return (
-      <AppBar position="static">
+      <AppBar position="static" color="primary">
          <Container>
             <Toolbar>
                <Typography variant="h6" className={classes.title}>

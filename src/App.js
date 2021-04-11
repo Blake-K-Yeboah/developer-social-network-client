@@ -10,6 +10,7 @@ import AuthRoute from "./util/AuthRoute";
 // Pages
 import Home from "./pages/Home";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 // Material UI Theme Function
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -34,6 +35,7 @@ function App() {
                   <CssBaseline />
                   <Route exact path="/" component={Home} />
                   <AuthRoute exact path="/register" component={Register} />
+                  <AuthRoute exact path="/login" component={Login} />
                </ThemeProvider>
             </Switch>
          </Router>

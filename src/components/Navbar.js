@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
 
 const Navbar = () => {
    // User + Logout from context
-   const { user } = useContext(AuthContext);
+   const { user, logout } = useContext(AuthContext);
 
    // Custom Classes
    const classes = useStyles();
@@ -49,7 +49,7 @@ const Navbar = () => {
 
    const buttons = user ? (
       <>
-         <Button color="secondary" variant="outlined">
+         <Button color="secondary" variant="outlined" onClick={logout}>
             Logout
          </Button>
       </>

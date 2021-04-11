@@ -14,8 +14,8 @@ import { makeStyles } from "@material-ui/core/styles";
 // Authentication Context
 import { AuthContext } from "../context/auth";
 
-// Navlink to change page
-import { NavLink } from "react-router-dom";
+// useHistory hook
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
    root: {
@@ -26,6 +26,10 @@ const useStyles = makeStyles(() => ({
    },
    rightButton: {
       marginLeft: 15,
+      textDecoration: "none",
+   },
+   leftButton: {
+      textDecoration: "none",
    },
 }));
 
@@ -36,6 +40,13 @@ const Navbar = () => {
    // Custom Classes
    const classes = useStyles();
 
+   // History Hook
+   let history = useHistory();
+
+   const redirectHandler = (route) => {
+      history.push(route);
+   };
+
    const buttons = user ? (
       <>
          <Button color="secondary" variant="outlined">
@@ -44,20 +55,22 @@ const Navbar = () => {
       </>
    ) : (
       <>
-         <NavLink to="/login">
-            <Button color="default" variant="outlined">
-               Login
-            </Button>
-         </NavLink>
-         <NavLink to="/register">
-            <Button
-               color="default"
-               variant="outlined"
-               className={classes.rightButton}
-            >
-               Register
-            </Button>
-         </NavLink>
+         <Button
+            color="default"
+            variant="outlined"
+            className={classes.leftButton}
+            onClick={redirectHandler.bind(this, "login")}
+         >
+            Login
+         </Button>
+         <Button
+            color="default"
+            variant="outlined"
+            className={classes.rightButton}
+            onClick={redirectHandler.bind(this, "register")}
+         >
+            Register
+         </Button>
       </>
    );
 
